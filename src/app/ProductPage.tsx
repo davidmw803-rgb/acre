@@ -1,4 +1,5 @@
 import { useState, Suspense } from 'react';
+import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows } from '@react-three/drei';
 import { motion, AnimatePresence } from 'motion/react';
@@ -9,9 +10,9 @@ import { Footer } from './components/Footer';
 import { Check, RotateCcw, ChevronRight } from 'lucide-react';
 
 const COLOR_OPTIONS = [
+  { name: 'Pearl White', hex: '#F0F0F0' },
   { name: 'Stealth Black', hex: '#1a1a1a' },
   { name: 'Forest Green', hex: '#2d5a27' },
-  { name: 'Arctic White', hex: '#e8e8e8' },
   { name: 'Slate Blue', hex: '#3a5a7c' },
   { name: 'Sunset Orange', hex: '#c45a2d' },
   { name: 'Matte Red', hex: '#8b2020' },
@@ -133,19 +134,21 @@ export default function ProductPage() {
             >
               <div className="aspect-square bg-gradient-to-b from-gray-50 to-gray-100 rounded-3xl overflow-hidden relative">
                 <Canvas
-                  camera={{ position: [4, 3, 4], fov: 35 }}
+                  camera={{ position: [3, 2, 3], fov: 40 }}
                   shadows
-                  gl={{ antialias: true, alpha: true }}
+                  gl={{ antialias: true, alpha: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.2 }}
                 >
-                  <ambientLight intensity={0.5} />
-                  <directionalLight position={[5, 8, 5]} intensity={1.2} castShadow />
-                  <directionalLight position={[-3, 4, -3]} intensity={0.4} />
+                  {/* 3-point studio lighting */}
+                  <ambientLight intensity={0.4} />
+                  <directionalLight position={[5, 8, 3]} intensity={1.5} castShadow shadow-mapSize={1024} />
+                  <directionalLight position={[-4, 5, -2]} intensity={0.6} />
+                  <directionalLight position={[0, 3, -5]} intensity={0.3} />
                   <Suspense fallback={null}>
                     <LawnmowerModel color={selectedColor.hex} />
                     <ContactShadows
-                      position={[0, -0.5, 0]}
-                      opacity={0.4}
-                      scale={8}
+                      position={[0, -0.35, 0]}
+                      opacity={0.5}
+                      scale={6}
                       blur={2.5}
                     />
                     <Environment preset="studio" />
@@ -155,8 +158,8 @@ export default function ProductPage() {
                     enableZoom={true}
                     autoRotate
                     autoRotateSpeed={1.5}
-                    minDistance={3}
-                    maxDistance={10}
+                    minDistance={2}
+                    maxDistance={8}
                     minPolarAngle={Math.PI / 6}
                     maxPolarAngle={Math.PI / 2.2}
                   />
