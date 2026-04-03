@@ -143,16 +143,18 @@ export default function ProductPage() {
                   <Suspense fallback={null}>
                     <LawnmowerModel color={selectedColor.hex} />
                     <ContactShadows
-                      position={[0, -0.8, 0]}
+                      position={[0, -0.5, 0]}
                       opacity={0.4}
                       scale={8}
-                      blur={2}
+                      blur={2.5}
                     />
                     <Environment preset="studio" />
                   </Suspense>
                   <OrbitControls
                     enablePan={false}
                     enableZoom={true}
+                    autoRotate
+                    autoRotateSpeed={1.5}
                     minDistance={3}
                     maxDistance={10}
                     minPolarAngle={Math.PI / 6}
