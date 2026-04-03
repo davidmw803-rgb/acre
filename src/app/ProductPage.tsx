@@ -1,5 +1,4 @@
 import { useState, Suspense } from 'react';
-import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows } from '@react-three/drei';
 import { motion, AnimatePresence } from 'motion/react';
@@ -102,14 +101,6 @@ const MODEL_SPECS: Record<string, {
   },
 };
 
-function LoadingSpinner() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin" />
-    </div>
-  );
-}
-
 export default function ProductPage() {
   const { modelId } = useParams<{ modelId: string }>();
   const navigate = useNavigate();
@@ -132,42 +123,39 @@ export default function ProductPage() {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <div className="aspect-square bg-gradient-to-b from-gray-50 to-gray-100 rounded-3xl overflow-hidden relative">
+              <div className="aspect-square bg-gradient-to-b from-gray-50 to-gray-100 rounded-3xl overflow-hidden relative touch-none">
                 <Canvas
-                  camera={{ position: [3, 2, 3], fov: 40 }}
+                  camera={{ position: [5, 3, 5], fov: 30 }}
                   shadows
-                  gl={{ antialias: true, alpha: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.2 }}
+                  gl={{ antialias: true, alpha: true }}
+                  style={{ touchAction: 'none' }}
                 >
-                  {/* 3-point studio lighting */}
-                  <ambientLight intensity={0.4} />
-                  <directionalLight position={[5, 8, 3]} intensity={1.5} castShadow shadow-mapSize={1024} />
-                  <directionalLight position={[-4, 5, -2]} intensity={0.6} />
-                  <directionalLight position={[0, 3, -5]} intensity={0.3} />
+                  <ambientLight intensity={0.6} />
+                  <directionalLight position={[5, 8, 3]} intensity={1.2} castShadow />
+                  <directionalLight position={[-3, 4, -2]} intensity={0.5} />
                   <Suspense fallback={null}>
                     <LawnmowerModel color={selectedColor.hex} />
                     <ContactShadows
-                      position={[0, -0.35, 0]}
-                      opacity={0.5}
-                      scale={6}
+                      position={[0, -0.5, 0]}
+                      opacity={0.35}
+                      scale={5}
                       blur={2.5}
                     />
                     <Environment preset="studio" />
                   </Suspense>
                   <OrbitControls
                     enablePan={false}
-                    enableZoom={true}
+                    enableZoom={false}
                     autoRotate
-                    autoRotateSpeed={1.5}
-                    minDistance={2}
-                    maxDistance={8}
-                    minPolarAngle={Math.PI / 6}
+                    autoRotateSpeed={1.0}
+                    target={[0, 0, 0]}
+                    minPolarAngle={Math.PI / 4}
                     maxPolarAngle={Math.PI / 2.2}
                   />
                 </Canvas>
-                <LoadingSpinner />
 
                 {/* Drag hint */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-gray-400 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-gray-400 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full pointer-events-none">
                   <RotateCcw className="w-3 h-3" />
                   Drag to rotate
                 </div>
