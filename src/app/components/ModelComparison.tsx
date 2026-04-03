@@ -3,6 +3,7 @@ import image_a86d4dc4df9739edeecc3c16bad566a6ab2c04c5 from '@/assets/a86d4dc4df9
 import image_a1868680de77280bbc21689ca35f84b77d33bb54 from '@/assets/a1868680de77280bbc21689ca35f84b77d33bb54.png';
 import { motion } from 'motion/react';
 import { Check } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import type { ModelType } from './ReservationFlow';
 
 interface ModelComparisonProps {
@@ -10,6 +11,7 @@ interface ModelComparisonProps {
 }
 
 export function ModelComparison({ onReserve }: ModelComparisonProps) {
+  const navigate = useNavigate();
   const models = [
     {
       id: 'G' as ModelType,
@@ -96,7 +98,10 @@ export function ModelComparison({ onReserve }: ModelComparisonProps) {
                   ))}
                 </div>
 
-                <button className="w-full px-6 py-3 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-colors">
+                <button
+                  onClick={() => navigate(`/product/${model.id}`)}
+                  className="w-full px-6 py-3 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-colors"
+                >
                   Learn More
                 </button>
                 <button 
