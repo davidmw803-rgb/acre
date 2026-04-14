@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import ReservationPage from './ReservationPage';
 import ProductPage from './ProductPage';
+import PartnersPage from './PartnersPage';
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/product/:modelId" element={<ProductPage />} />
         <Route path="/reserve" element={<ReservationPage />} />
+        <Route path="/partners" element={<PartnersPage />} />
       </Routes>
     </BrowserRouter>
   );
