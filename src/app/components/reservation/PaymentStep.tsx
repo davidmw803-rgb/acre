@@ -25,9 +25,9 @@ export function PaymentStep({ data, onNext, onBack }: PaymentStepProps) {
 
   const getModelPrice = () => {
     switch (data.model) {
-      case 'G': return 4999;
-      case 'E': return 7999;
-      case 'T': return 12999;
+      case 'G': return 2499;
+      case 'E': return 3999;
+      case 'T': return 5499;
       default: return 0;
     }
   };

@@ -4,6 +4,7 @@ import { HeroSection } from './components/HeroSection';
 import { FeatureGrid } from './components/FeatureGrid';
 import { BrainSection } from './components/BrainSection';
 import { PerformanceRibbon } from './components/PerformanceRibbon';
+import { TractionSection } from './components/TractionSection';
 import { ModelComparison } from './components/ModelComparison';
 import { ClosingCTA } from './components/ClosingCTA';
 import { Footer } from './components/Footer';
@@ -23,6 +24,7 @@ export default function LandingPage() {
       <FeatureGrid />
       <BrainSection />
       <PerformanceRibbon />
+      <TractionSection />
       <ModelComparison onReserve={openReservation} />
       <ClosingCTA onReserve={() => openReservation()} />
       <Footer />
